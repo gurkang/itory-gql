@@ -6,7 +6,7 @@ const mutations: MutationResolvers = {
   login: async (_, { email, password }, {}) => {
     const user = await prisma.user.findUnique({
       where: {
-        email: email,
+        email: email.toLowerCase(),
       },
     });
     if (!user) {
@@ -23,7 +23,7 @@ const mutations: MutationResolvers = {
   register: async (_, { user }, {}) => {
     const newUser = await prisma.user.create({
       data: {
-        email: user.email,
+        email: user.email.toLowerCase(),
         password: user.password,
       },
     });
