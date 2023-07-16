@@ -4,10 +4,12 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApplicationContext } from "./context";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { loadSchemaSync } from "@graphql-tools/load";
-import "dotenv/config";
 import Mutation from "./resolvers/mutations";
 import queries from "./resolvers/queries";
 import userResolver from "./resolvers/user";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const typeDefinitions = loadSchemaSync("./schema.graphql", {
   loaders: [new GraphQLFileLoader()],
@@ -21,8 +23,9 @@ const server = new ApolloServer<ApplicationContext>({
 });
 
 async function main() {
+  const port = Number(process.env.PORT || 4000);
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port: port },
     context: async ({ req }) => {
       return {
         jwt: req.headers.authorization || "",

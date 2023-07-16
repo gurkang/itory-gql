@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
     "start": "ts-node src/main.ts",
-    "codegen": "graphql-codegen --config codegen.ts",
-    "prestart": "prisma generate",
-    "predev": "yarn codegen"
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "4.0.1",
