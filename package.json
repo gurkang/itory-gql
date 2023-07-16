@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
-    "start": "ts-node src/main.ts && prisma generate",
+    "start": "ts-node src/main.ts",
     "codegen": "graphql-codegen --config codegen.ts",
-    "prestart": "yarn codegen",
+    "prestart": "prisma generate",
     "predev": "yarn codegen"
   },
   "devDependencies": {
