@@ -136,6 +136,16 @@ export type User = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
+
+export type UserBoxesArgs = {
+  boxId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type UserItemsArgs = {
+  itemId?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type UserRegister = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -285,10 +295,10 @@ export type QueryResolvers<ContextType = ApplicationContext, ParentType extends 
 };
 
 export type UserResolvers<ContextType = ApplicationContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  boxes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Box']>>>, ParentType, ContextType>;
+  boxes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Box']>>>, ParentType, ContextType, Partial<UserBoxesArgs>>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType>;
+  items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType, Partial<UserItemsArgs>>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

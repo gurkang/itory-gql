@@ -60,6 +60,6 @@ type User {
   id: ID!
   name: String
   email: String
-  boxes: [Box]
-  items: [Item]
+  boxes(boxId: ID): [Box]
+  items(itemId: ID): [Item]
 }
