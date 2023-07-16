@@ -1,0 +1,65 @@
+type Query {
+  boxes(limit: Int): [Box]
+  items(limit: Int): [Item]
+  me: User
+}
+type Mutation {
+  login(email: String!, password: String!): JWT
+  register(user: UserRegister!): JWT
+  createBox(name: String!): Box
+  updateBox(box: UpdateBox!): Box
+  createItem(item: NewItem!): Item
+  updateItem(item: UpdateItem!): Item
+  deleteBox(id: ID!): Boolean
+  deleteItem(id: ID!): Boolean
+}
+
+type JWT {
+  token: String!
+}
+
+type Box {
+  id: ID!
+  name: String!
+  description: String
+  items: [Item]
+}
+
+type Item {
+  id: ID!
+  name: String
+  quantity: Int
+  box: Box
+}
+
+input NewItem {
+  name: String!
+  quantity: Int
+  boxId: ID
+}
+
+input UpdateBox {
+  id: ID!
+  name: String
+  description: String
+}
+
+input UpdateItem {
+  id: ID!
+  name: String
+  quantity: Int
+  boxId: ID
+}
+
+input UserRegister {
+  email: String!
+  password: String!
+}
+
+type User {
+  id: ID!
+  name: String
+  email: String
+  boxes: [Box]
+  items: [Item]
+}

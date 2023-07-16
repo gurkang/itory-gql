@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator pothos {
+  provider = "prisma-pothos-types"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Box {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  description String?
+  items       Item[]
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Item {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  box       Box?     @relation(fields: [boxId], references: [id])
+  boxId     String?
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
+  image     String?
+  quantity  Int      @default(0)
+}
+
+model User {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  email         String   @unique
+  password      String
+  name          String?
+  boxes         Box[]
+  items         Item[]
+  verifiedEmail Boolean  @default(false)
+  phoneNumber   String?
+}
