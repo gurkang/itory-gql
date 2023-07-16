@@ -107,7 +107,7 @@ const mutations: MutationResolvers = {
     if (item.boxId) {
       const newItem = await prisma.item.create({
         data: {
-          name: item.boxId,
+          name: item.name,
           quantity: item.quantity ?? 0,
           box: {
             connect: {
