@@ -16,6 +16,7 @@ type Mutation {
 
 type JWT {
   token: String!
+  expiresIn: String!
 }
 
 type Box {
@@ -27,8 +28,8 @@ type Box {
 
 type Item {
   id: ID!
-  name: String
-  quantity: Int
+  name: String!
+  quantity: Int!
   box: Box
 }
 

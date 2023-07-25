@@ -29,12 +29,13 @@ export type Item = {
   __typename?: 'Item';
   box?: Maybe<Box>;
   id: Scalars['ID']['output'];
-  name?: Maybe<Scalars['String']['output']>;
-  quantity?: Maybe<Scalars['Int']['output']>;
+  name: Scalars['String']['output'];
+  quantity: Scalars['Int']['output'];
 };
 
 export type Jwt = {
   __typename?: 'JWT';
+  expiresIn: Scalars['String']['output'];
   token: Scalars['String']['output'];
 };
 
@@ -267,12 +268,13 @@ export type BoxResolvers<ContextType = ApplicationContext, ParentType extends Re
 export type ItemResolvers<ContextType = ApplicationContext, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   box?: Resolver<Maybe<ResolversTypes['Box']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  quantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type JwtResolvers<ContextType = ApplicationContext, ParentType extends ResolversParentTypes['JWT'] = ResolversParentTypes['JWT']> = {
+  expiresIn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

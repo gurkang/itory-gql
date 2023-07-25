@@ -18,6 +18,7 @@ const mutations: MutationResolvers = {
     const jwt = generateJWT(user.id);
     return {
       token: jwt,
+      expiresIn: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     };
   },
   register: async (_, { user }, {}) => {
@@ -30,6 +31,7 @@ const mutations: MutationResolvers = {
     const jwt = generateJWT(newUser.id);
     return {
       token: jwt,
+      expiresIn: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
     };
   },
   updateItem: async (_, { item }, { jwt }) => {

@@ -22,6 +22,25 @@ const userResolver: UserResolvers = {
       });
     }
   },
+  items: async ({}, { itemId }, { jwt }, {}) => {
+    const decoded = verifyJWT(jwt);
+    if (itemId) {
+      return await prisma.item.findMany({
+        where: {
+          userId: decoded.userId,
+          id: itemId,
+        },
+        include: { box: true },
+      });
+    } else {
+      return await prisma.item.findMany({
+        where: {
+          userId: decoded.userId,
+        },
+        include: { box: true },
+      });
+    }
+  },
 };
 
 export default userResolver;
