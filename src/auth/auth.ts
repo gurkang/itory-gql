@@ -10,7 +10,7 @@ interface DecodedJWT {
 export const generateJWT = (userId: string) => {
   const secret = process.env.JWT_SECRET || "secret";
   return jwt.sign({ userId }, secret, {
-    expiresIn: "2h",
+    expiresIn: "24h",
     algorithm: "HS256",
   });
 };
