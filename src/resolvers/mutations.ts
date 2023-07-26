@@ -42,22 +42,39 @@ const mutations: MutationResolvers = {
         userId: decoded.userId,
       },
     });
-    const updatedItem = await prisma.item.update({
-      where: {
-        id: item.id,
-        userId: decoded.userId,
-      },
-      data: {
-        name: item.name ?? existingItem?.name,
-        quantity: item.quantity ?? existingItem?.quantity,
-        box: {
-          connect: {
-            id: item.boxId ?? existingItem?.boxId ?? undefined,
+    if (item.boxId === null || item.boxId === undefined) {
+      const updatedItem = await prisma.item.update({
+        where: {
+          id: item.id,
+          userId: decoded.userId,
+        },
+        data: {
+          name: item.name ?? existingItem?.name,
+          quantity: item.quantity ?? existingItem?.quantity,
+          box: {
+            disconnect: true,
           },
         },
-      },
-    });
-    return updatedItem;
+      });
+      return updatedItem;
+    } else {
+      const updatedItem = await prisma.item.update({
+        where: {
+          id: item.id,
+          userId: decoded.userId,
+        },
+        data: {
+          name: item.name ?? existingItem?.name,
+          quantity: item.quantity ?? existingItem?.quantity,
+          box: {
+            connect: {
+              id: item.boxId ?? existingItem?.boxId ?? undefined,
+            },
+          },
+        },
+      });
+      return updatedItem;
+    }
   },
   createBox: async (_, { name }, { jwt }, {}) => {
     const decoded = verifyJWT(jwt);
