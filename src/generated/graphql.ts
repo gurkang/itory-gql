@@ -53,6 +53,7 @@ export type Mutation = {
 
 
 export type MutationCreateBoxArgs = {
+  description?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
 };
 

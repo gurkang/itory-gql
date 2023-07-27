@@ -35,6 +35,7 @@ const mutations: MutationResolvers = {
     };
   },
   updateItem: async (_, { item }, { jwt }) => {
+    console.log(item);
     const decoded = verifyJWT(jwt);
     const existingItem = await prisma.item.findUnique({
       where: {
@@ -76,12 +77,13 @@ const mutations: MutationResolvers = {
       return updatedItem;
     }
   },
-  createBox: async (_, { name }, { jwt }, {}) => {
+  createBox: async (_, { name, description }, { jwt }, {}) => {
     const decoded = verifyJWT(jwt);
     try {
       const box = await prisma.box.create({
         data: {
           name,
+          description,
           User: {
             connect: {
               id: decoded.userId,
@@ -95,6 +97,7 @@ const mutations: MutationResolvers = {
       return {
         id: box.id,
         name: box.name,
+        description: box.description,
         items: [],
       };
     } catch (error) {

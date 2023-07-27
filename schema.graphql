@@ -6,7 +6,7 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): JWT
   register(user: UserRegister!): JWT
-  createBox(name: String!): Box
+  createBox(name: String!, description: String): Box
   updateBox(box: UpdateBox!): Box
   createItem(item: NewItem!): Item
   updateItem(item: UpdateItem!): Item
