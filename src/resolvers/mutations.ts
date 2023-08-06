@@ -25,6 +25,7 @@ const mutations: MutationResolvers = {
   register: async (_, { user }, {}) => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(user.password, salt);
+    console.log(hashedPassword);
     const newUser = await prisma.user.create({
       data: {
         email: user.email.toLowerCase(),
