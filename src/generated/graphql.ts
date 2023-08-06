@@ -37,6 +37,7 @@ export type Jwt = {
   __typename?: 'JWT';
   expiresIn: Scalars['String']['output'];
   token: Scalars['String']['output'];
+  username: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -278,6 +279,7 @@ export type ItemResolvers<ContextType = ApplicationContext, ParentType extends R
 export type JwtResolvers<ContextType = ApplicationContext, ParentType extends ResolversParentTypes['JWT'] = ResolversParentTypes['JWT']> = {
   expiresIn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
