@@ -2,6 +2,7 @@ type Query {
   boxes(limit: Int): [Box]
   items(limit: Int): [Item]
   me: User
+  auth: Boolean
 }
 type Mutation {
   login(email: String!, password: String!): JWT

@@ -4,6 +4,18 @@ import { prisma } from "../db/prismaInit";
 import { QueryResolvers, User } from "../generated/graphql";
 
 const queries: QueryResolvers = {
+  auth: async (_, __, { jwt }) => {
+    const decoded = verifyJWT(jwt);
+    const user = await prisma.user.findUnique({
+      where: {
+        id: decoded.userId,
+      },
+    });
+    if (!user) {
+      throw new GraphQLError("Not authorized");
+    }
+    return true;
+  },
   boxes: async (_, { limit }, { jwt }) => {
     const decoded = verifyJWT(jwt);
     if (limit) {

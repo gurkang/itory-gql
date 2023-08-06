@@ -101,6 +101,7 @@ export type NewItem = {
 
 export type Query = {
   __typename?: 'Query';
+  auth?: Maybe<Scalars['Boolean']['output']>;
   boxes?: Maybe<Array<Maybe<Box>>>;
   items?: Maybe<Array<Maybe<Item>>>;
   me?: Maybe<User>;
@@ -292,6 +293,7 @@ export type MutationResolvers<ContextType = ApplicationContext, ParentType exten
 };
 
 export type QueryResolvers<ContextType = ApplicationContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  auth?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   boxes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Box']>>>, ParentType, ContextType, Partial<QueryBoxesArgs>>;
   items?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType, Partial<QueryItemsArgs>>;
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
