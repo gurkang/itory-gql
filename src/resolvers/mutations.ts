@@ -1,6 +1,7 @@
 import { generateJWT, verifyJWT } from "../auth/auth";
 import { prisma } from "../db/prismaInit";
 import { MutationResolvers } from "../generated/graphql";
+import * as bcrypt from "bcryptjs";
 
 const mutations: MutationResolvers = {
   login: async (_, { email, password }, {}) => {
@@ -12,7 +13,7 @@ const mutations: MutationResolvers = {
     if (!user) {
       throw new Error("No user found");
     }
-    if (user.password !== password) {
+    if (bcrypt.compareSync(password, user.password) === false) {
       throw new Error("Wrong password");
     }
     const jwt = generateJWT(user.id);
@@ -22,10 +23,12 @@ const mutations: MutationResolvers = {
     };
   },
   register: async (_, { user }, {}) => {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(user.password, salt);
     const newUser = await prisma.user.create({
       data: {
         email: user.email.toLowerCase(),
-        password: user.password,
+        password: hashedPassword,
       },
     });
     const jwt = generateJWT(newUser.id);
